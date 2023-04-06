@@ -8,9 +8,9 @@ import (
 )
 
 func TestNewPreParams(t *testing.T) {
-	preParams := NewPreParams(configs.App.PreParamLambda, configs.App.PreParamT)
+	preParams := NewPreParams(configs.Test.PreParamLambda, configs.Test.PreParamT)
 
-	if preParams.t.Int64() != int64(configs.App.PreParamT) {
+	if preParams.t.Int64() != int64(configs.Test.PreParamT) {
 		t.Errorf("expected t to be assigned to value specified in config, but received %d", preParams.t.Int64())
 	}
 	if preParams.n.ProbablyPrime(configs.App.ProbablyPrimePrecision) {

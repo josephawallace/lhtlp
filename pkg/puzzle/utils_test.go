@@ -42,7 +42,7 @@ func TestGcd(t *testing.T) {
 }
 
 func TestGenerateStrongPrime(t *testing.T) {
-	p, err := generateStrongPrime(configs.App.PreParamLambda)
+	p, err := generateStrongPrime(configs.Test.PreParamLambda)
 	if err != nil {
 		t.Error(err)
 	}

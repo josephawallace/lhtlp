@@ -8,7 +8,7 @@ import (
 )
 
 func TestGeneratePuzzle(t *testing.T) {
-	preParams := NewPreParams(configs.App.PreParamLambda, configs.App.PreParamT)
+	preParams := NewPreParams(configs.Test.PreParamLambda, configs.Test.PreParamT)
 	puzzle := GeneratePuzzle(big.NewInt(574938), preParams)
 
 	if puzzle.u == nil {
@@ -34,7 +34,7 @@ func TestSolvePuzzle(t *testing.T) {
 		if !ok {
 			t.Errorf("failed to set secret value")
 		}
-		preParams := NewPreParams(configs.App.PreParamLambda, configs.App.PreParamT)
+		preParams := NewPreParams(configs.Test.PreParamLambda, configs.Test.PreParamT)
 
 		puzzle := GeneratePuzzle(secret, preParams)
 		ans := SolvePuzzle(puzzle, preParams)
@@ -54,7 +54,7 @@ func TestEvaluatePuzzles(t *testing.T) {
 		{"eval test vector 3", "10000000000"},
 	}
 
-	preParams := NewPreParams(configs.App.PreParamLambda, configs.App.PreParamT)
+	preParams := NewPreParams(configs.Test.PreParamLambda, configs.Test.PreParamT)
 
 	want := big.NewInt(0)
 

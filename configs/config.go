@@ -6,29 +6,43 @@ import (
 )
 
 var App = newAppConfig()
+var Test = newTestConfig()
 
-type config struct {
+type appConfig struct {
 	ProbablyPrimePrecision int `mapstructure:"probably_prime_precision"`
-	PreParamLambda         int `mapstructure:"pre_param_lambda"`
-	PreParamT              int `mapstructure:"pre_param_t"`
 }
 
-func newAppConfig() *config {
+type testConfig struct {
+	PreParamLambda int `mapstructure:"test_pre_param_lambda"`
+	PreParamT      int `mapstructure:"test_pre_param_t"`
+}
+
+func newAppConfig() *appConfig {
 	envPrefix := "lhtlp"
 	viper.SetEnvPrefix(envPrefix)
 	viper.AutomaticEnv()
 
 	viper.SetDefault("probably_prime_precision", 20)
-	viper.SetDefault("pre_param_lambda", 1024)
-	viper.SetDefault("pre_param_t", 10000)
 
-	var cfg config
+	var cfg appConfig
 	if err := viper.Unmarshal(&cfg); err != nil {
 		log.Fatal().Msg("failed to unmarshal configuration")
 	}
 
-	if cfg.PreParamLambda < 10 {
-		log.Fatal().Msgf("lambda must be greater than 10, received %d", cfg.PreParamLambda)
+	return &cfg
+}
+
+func newTestConfig() *testConfig {
+	envPrefix := "lhtlp"
+	viper.SetEnvPrefix(envPrefix)
+	viper.AutomaticEnv()
+
+	viper.SetDefault("test_pre_param_lambda", 512)
+	viper.SetDefault("test_pre_param_t", 100000)
+
+	var cfg testConfig
+	if err := viper.Unmarshal(&cfg); err != nil {
+		log.Fatal().Msg("failed to unmarshal configuration")
 	}
 
 	return &cfg
