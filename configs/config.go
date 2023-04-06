@@ -14,11 +14,6 @@ type config struct {
 }
 
 func newAppConfig() *config {
-	viper.AddConfigPath(".")
-	viper.AddConfigPath("../configs")
-	viper.SetConfigName("config")
-	viper.SetConfigType("yaml")
-
 	envPrefix := "lhtlp"
 	viper.SetEnvPrefix(envPrefix)
 	viper.AutomaticEnv()
@@ -26,10 +21,6 @@ func newAppConfig() *config {
 	viper.SetDefault("probably_prime_precision", 20)
 	viper.SetDefault("pre_param_lambda", 1024)
 	viper.SetDefault("pre_param_t", 10000)
-
-	if err := viper.ReadInConfig(); err != nil {
-		log.Fatal().Msg("failed to read configuration file")
-	}
 
 	var cfg config
 	if err := viper.Unmarshal(&cfg); err != nil {
