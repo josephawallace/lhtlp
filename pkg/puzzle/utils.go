@@ -1,4 +1,4 @@
-package pkg
+package puzzle
 
 import (
 	"crypto/rand"

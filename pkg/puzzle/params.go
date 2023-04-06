@@ -1,4 +1,4 @@
-package pkg
+package puzzle
 
 import (
 	"math/big"
@@ -6,6 +6,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+// PreParams define the necessary parameters for generating and solving puzzles. This includes the difficulty parameters.
 type PreParams struct {
 	t *big.Int
 	n *big.Int
@@ -13,6 +14,7 @@ type PreParams struct {
 	h *big.Int
 }
 
+// NewPreParams generates a PreParams object that can be used for generating and solving puzzles.
 func NewPreParams(lambda int, T int) *PreParams {
 	p, err := generateStrongPrime(lambda / 2)
 	if err != nil {

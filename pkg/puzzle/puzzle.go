@@ -1,4 +1,4 @@
-package pkg
+package puzzle
 
 import (
 	"crypto/rand"
@@ -7,11 +7,14 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+// Puzzle represents an encoded value that can be decoded (or "opened") within a pre-specified amount of time, via
+// repeated squaring.
 type Puzzle struct {
 	u *big.Int
 	v *big.Int
 }
 
+// GeneratePuzzle encodes a secret value in a time-lock puzzle.
 func GeneratePuzzle(secret *big.Int, preParams *PreParams) *Puzzle {
 	N2 := new(big.Int).Exp(preParams.n, big.NewInt(2), nil)
 
@@ -36,6 +39,7 @@ func GeneratePuzzle(secret *big.Int, preParams *PreParams) *Puzzle {
 	}
 }
 
+// SolvePuzzle "force opens" a given puzzle, using repeated squaring.
 func SolvePuzzle(puzzle *Puzzle, preParams *PreParams) *big.Int {
 	N2 := new(big.Int).Exp(preParams.n, big.NewInt(2), nil)
 
@@ -56,6 +60,7 @@ func SolvePuzzle(puzzle *Puzzle, preParams *PreParams) *big.Int {
 	return s
 }
 
+// EvaluatePuzzles collapses many puzzles to just one by leveraging the homomorphic properties of LHTLPs.
 func EvaluatePuzzles(puzzles []*Puzzle, preParams *PreParams) *Puzzle {
 	N2 := new(big.Int).Exp(preParams.n, big.NewInt(2), nil)
 
